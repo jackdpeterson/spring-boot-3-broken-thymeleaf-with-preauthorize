@@ -8,6 +8,6 @@
 
 
 ## What I've tested so far:
-WebMVC + JDBC on 2.7.x works fine
-WebFlux + R2dbc on 2.7.x works fine
-WebFlux + R2dbc on 3.0.x does not work.
+- WebMVC + JDBC on 2.7.x works fine
+- WebFlux + R2dbc on 2.7.x works fine
+- WebFlux + R2dbc on 3.0.x does not work.
