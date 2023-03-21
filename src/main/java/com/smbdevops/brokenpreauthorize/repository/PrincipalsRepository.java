@@ -1,16 +1,16 @@
 package com.smbdevops.brokenpreauthorize.repository;
 
 import com.smbdevops.brokenpreauthorize.entity.PrincipalEntity;
-import org.springframework.data.r2dbc.repository.Query;
+import org.springframework.data.jdbc.repository.query.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
-import org.springframework.data.repository.reactive.ReactiveSortingRepository;
 import org.springframework.stereotype.Repository;
-import reactor.core.publisher.Mono;
+import java.util.Optional;
 
 @Repository
-public interface PrincipalsRepository extends ReactiveCrudRepository<PrincipalEntity, Long>, ReactiveSortingRepository<PrincipalEntity, Long> {
+public interface PrincipalsRepository extends CrudRepository<PrincipalEntity, Long>, PagingAndSortingRepository<PrincipalEntity, Long> {
 
     @Query("select * from principals where username = :username")
-    Mono<PrincipalEntity> findByUsername(@Param("username") String username);
+    Optional<PrincipalEntity> findByUsername(@Param("username") String username);
 }

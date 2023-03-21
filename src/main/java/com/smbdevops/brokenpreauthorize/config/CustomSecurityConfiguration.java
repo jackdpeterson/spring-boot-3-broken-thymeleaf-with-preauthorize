@@ -3,21 +3,32 @@ package com.smbdevops.brokenpreauthorize.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
-import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
-import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.core.userdetails.MapReactiveUserDetailsService;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebFluxSecurity
-@EnableReactiveMethodSecurity
+@EnableWebSecurity
 public class CustomSecurityConfiguration {
 
     @Bean
-    public MapReactiveUserDetailsService userDetailsService() {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests((requests) -> requests
+                        .anyRequest().authenticated()
+                )
+                .formLogin(Customizer.withDefaults()
+                );
+
+        return http.build();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
         UserDetails user =
                 User.withDefaultPasswordEncoder()
                         .username("user")
@@ -25,20 +36,6 @@ public class CustomSecurityConfiguration {
                         .roles("USER")
                         .build();
 
-        return new MapReactiveUserDetailsService(user);
+        return new InMemoryUserDetailsManager(user);
     }
-
-    @Bean
-    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-        http
-                .authorizeExchange(exchanges -> exchanges
-                        .anyExchange().authenticated()
-                )
-                .formLogin(Customizer.withDefaults())
-
-        ;
-        return http.build();
-    }
-
-
 }
