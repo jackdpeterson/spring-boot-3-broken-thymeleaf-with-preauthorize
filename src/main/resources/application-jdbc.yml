@@ -1,0 +1,13 @@
+server:
+  port: 8080
+  error:
+    include-stacktrace: always
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: password
+    url: jdbc:mysql://localhost:3306/com_smbdevops?createDatabaseIfNotExist=true
+    initialization-mode: always

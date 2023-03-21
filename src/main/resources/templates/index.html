@@ -1,0 +1,17 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<h1>Logged in. Should see user info</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Username</th>
+        <th>Profile summary</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${usr.username}">username goes here</td>
+        <td th:text="${usr.profileDescription}">Description goes here"></td>
+    </tr>
+    </tbody>
+</table>
+</html>

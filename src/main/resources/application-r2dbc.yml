@@ -1,0 +1,15 @@
+server:
+  port: 8080
+  error:
+    include-stacktrace: always
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+  flyway:
+    url: jdbc:mysql://localhost:3306/com_smbdevops?createDatabaseIfNotExist=true
+    user: ${spring.r2dbc.username}
+    password: ${spring.r2dbc.password}
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/com_smbdevops?createDatabaseIfNotExist=false
+    username: root
+    password: password
